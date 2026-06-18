@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MICHAEL GFRERER</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@100;200;300&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        body { background-color: #000000; font-family: 'Inter', sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .brand-container { text-align: center; padding: 20px; }
+        .name { font-size: 1.5rem; font-weight: 200; letter-spacing: 0.45em; text-transform: uppercase; margin-bottom: 0.8rem; white-space: nowrap; color: #D4D4D4; }
+        .title { font-size: 0.85rem; font-weight: 300; letter-spacing: 0.55em; text-transform: uppercase; color: #555555; margin-bottom: 4rem; padding-left: 0.55em; }
+        .notice { font-size: 0.6rem; font-weight: 200; letter-spacing: 0.4em; text-transform: uppercase; color: #666666; margin-bottom: 1.5rem; }
+        .access-field { background: transparent; border: 1px solid #333333; color: #D4D4D4; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 200; letter-spacing: 0.2em; padding: 0.6rem 1.2rem; text-align: center; width: 240px; outline: none; transition: all 0.3s ease; }
+        .access-field:focus { border-color: #666666; }
+        .access-field::placeholder { color: #444444; font-size: 0.7rem; }
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0); border-color: #333333; color: #D4D4D4; }
+            20%, 60% { transform: translateX(-6px); border-color: #8a1f1f; color: #8a1f1f; }
+            40%, 80% { transform: translateX(6px); border-color: #8a1f1f; color: #8a1f1f; }
+        }
+        .error-effect { animation: shakeError 0.4s ease-in-out; }
+    </style>
+</head>
+<body>
+    <div class="brand-container">
+        <div class="name">Michael Gfrerer</div>
+        <div class="title">Principal</div>
+        <div class="notice" id="status-text">Private Office &middot; By Invitation Only</div>
+        <input type="text" class="access-field" id="code-input" placeholder="ENTER ACCESS CODE..." autocomplete="off">
+    </div>
+    <script>
+        const inputField = document.getElementById('code-input');
+        const statusText = document.getElementById('status-text');
+        inputField.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                const enteredValue = inputField.value.trim().toLowerCase();
+                if (enteredValue !== "") {
+                    const targetUrl = enteredValue + ".html";
+                    statusText.innerText = "VERIFYING CREDENTIALS...";
+                    fetch(targetUrl, { method: 'HEAD' })
+                    .then(response => {
+                        if (response.ok) {
+                            statusText.style.color = "#4a8a4f";
+                            statusText.innerText = "ACCESS GRANTED. OPENING PORTAL...";
+                            inputField.style.borderColor = "#4a8a4f";
+                            setTimeout(() => { window.location.href = targetUrl; }, 1000);
+                        } else { triggerError(); }
+                    }).catch(() => { triggerError(); });
+                }
+            }
+        });
+        function triggerError() {
+            inputField.classList.add('error-effect');
+            inputField.value = "ACCESS DENIED";
+            statusText.style.color = "#8a1f1f";
+            inputField.blur();
+            setTimeout(() => {
+                inputField.classList.remove('error-effect');
+                inputField.value = "";
+                statusText.style.color = "#666666";
+                statusText.innerHTML = "Private Office &middot; By Invitation Only";
+                inputField.focus();
+            }, 1200);
+        }
+    </script>
+</body>
+</html>

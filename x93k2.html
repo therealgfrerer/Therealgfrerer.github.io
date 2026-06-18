@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MICHAEL GFRERER &middot; PORTAL</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@100;200;300&display=swap" rel="stylesheet">
+    
+    <script>
+        (function() {
+            const referrer = document.referrer;
+            // Erkennt und erlaubt den Zugriff von gfrerercapital.at
+            if (!referrer.includes('gfrerercapital.at') && !referrer.includes('therealgfrerer.github.io')) {
+                window.location.replace('https://gfrerercapital.at');
+            }
+        })();
+    </script>
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        body { background-color: #000000; color: #D4D4D4; font-family: 'Inter', sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .portal-container { text-align: center; padding: 20px; animation: fadeIn 1.2s ease-in-out; }
+        .name { font-size: 1.5rem; font-weight: 200; letter-spacing: 0.45em; text-transform: uppercase; margin-bottom: 0.8rem; white-space: nowrap; color: #D4D4D4; }
+        .title { font-size: 0.85rem; font-weight: 300; letter-spacing: 0.55em; text-transform: uppercase; color: #555555; margin-bottom: 4rem; padding-left: 0.55em; }
+        .link-list { list-style: none; margin-top: 2rem; }
+        .link-item { margin: 2rem 0; }
+        .link-item a { color: #888888; text-decoration: none; font-size: 0.75rem; font-weight: 200; letter-spacing: 0.35em; text-transform: uppercase; transition: all 0.4s ease; padding-bottom: 8px; border-bottom: 1px solid transparent; cursor: pointer; }
+        .link-item a:hover { color: #D4D4D4; border-bottom-color: #555555; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="portal-container">
+        <div class="name">Michael Gfrerer</div>
+        <div class="title">Principal</div>
+        
+        <ul class="link-list">
+            <li class="link-item"><a onclick="openSecureLink('bWFpbHRvOnByaXZhdGVAZ2ZyZXJlci1jb25zdWx0aW5nLmNvbQ==')">Secure Email</a></li>
+            <li class="link-item"><a onclick="openSecureLink('aHR0cHM6Ly9saW5rZWRpbi5jb20vaW4vdGhlcmVhbGdmcmVyZXI=')">LinkedIn Profile</a></li>
+            <li class="link-item"><a onclick="openSecureLink('aHR0cHM6Ly9pbnN0YWdyYW0uY29tL3RoZXJlYWxnZnJlcmVy')">Instagram Account</a></li>
+        </ul>
+    </div>
+
+    <script>
+        function openSecureLink(encodedUrl) {
+            try {
+                const decodedUrl = atob(encodedUrl);
+                if (decodedUrl.startsWith('mailto:')) {
+                    window.location.href = decodedUrl;
+                } else {
+                    window.open(decodedUrl, '_blank', 'noopener,noreferrer');
+                }
+            } catch (e) {
+                console.error("Decryption failed.");
+            }
+        }
+    </script>
+
+</body>
+</html>
