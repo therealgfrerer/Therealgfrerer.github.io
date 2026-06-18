@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MICHAEL GFRERER &middot; PORTAL</title>
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Inter:wght@100;200;300&display=swap" rel="stylesheet">
-    
+    <title>MICHAEL GFRERER · PORTAL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400&family=Inter:wght@100;200;300&display=swap" rel="stylesheet">
+
     <script>
         (function() {
             const referrer = document.referrer;
-            // Erkennt und erlaubt den Zugriff von gfrerercapital.at
             if (!referrer.includes('gfrerercapital.at') && !referrer.includes('therealgfrerer.github.io')) {
                 window.location.replace('https://gfrerercapital.at');
             }
@@ -19,24 +18,177 @@
     </script>
 
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
-        body { background-color: #000000; color: #D4D4D4; font-family: 'Inter', sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
-        .portal-container { text-align: center; padding: 20px; animation: fadeIn 1.2s ease-in-out; }
-        .name { font-size: 1.5rem; font-weight: 200; letter-spacing: 0.45em; text-transform: uppercase; margin-bottom: 0.8rem; white-space: nowrap; color: #D4D4D4; }
-        .title { font-size: 0.85rem; font-weight: 300; letter-spacing: 0.55em; text-transform: uppercase; color: #555555; margin-bottom: 4rem; padding-left: 0.55em; }
-        .link-list { list-style: none; margin-top: 2rem; }
-        .link-item { margin: 2rem 0; }
-        .link-item a { color: #888888; text-decoration: none; font-size: 0.75rem; font-weight: 200; letter-spacing: 0.35em; text-transform: uppercase; transition: all 0.4s ease; padding-bottom: 8px; border-bottom: 1px solid transparent; cursor: pointer; }
-        .link-item a:hover { color: #D4D4D4; border-bottom-color: #555555; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0; padding: 0;
+            user-select: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        :root {
+            --parchment: #ede8e0;
+            --ink:       #141210;
+            --bronze:    #9a7d52;
+            --mist:      #a09890;
+            --mist-dim:  #c8c2b8;
+        }
+
+        body {
+            background-color: var(--parchment);
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ── Grain ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='0.06'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Desk lamp glow ── */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 60% at 50% 48%, rgba(255,248,235,0.55) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Stage ── */
+        .stage {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ── Eyebrow ── */
+        .eyebrow {
+            font-size: 0.55rem;
+            font-weight: 200;
+            letter-spacing: 0.55em;
+            text-transform: uppercase;
+            color: var(--mist);
+            margin-bottom: 1.6rem;
+            opacity: 0;
+            animation: fadeIn 0.6s ease 0.2s forwards;
+        }
+
+        /* ── Name ── */
+        .name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2rem, 6vw, 3.4rem);
+            font-weight: 300;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--ink);
+            line-height: 1;
+            white-space: nowrap;
+            opacity: 0;
+            animation: fadeIn 0.9s ease 0.3s forwards;
+        }
+
+        /* ── Principal ── */
+        .principal {
+            font-size: 0.62rem;
+            font-weight: 300;
+            letter-spacing: 0.65em;
+            text-transform: uppercase;
+            color: var(--bronze);
+            margin-top: 0.9rem;
+            padding-left: 0.65em;
+            opacity: 0;
+            animation: fadeIn 0.7s ease 0.9s forwards;
+        }
+
+        /* ── Bronze rule ── */
+        .rule {
+            height: 1px;
+            width: 0;
+            background: linear-gradient(90deg, transparent 0%, var(--bronze) 30%, var(--bronze) 70%, transparent 100%);
+            margin-top: 1rem;
+            animation: ruleIn 0.9s cubic-bezier(0.4,0,0.2,1) 1.3s forwards;
+        }
+
+        @keyframes ruleIn { to { width: 100%; } }
+
+        /* ── Link list ── */
+        .link-list {
+            list-style: none;
+            margin-top: 2.8rem;
+        }
+
+        .link-item {
+            opacity: 0;
+            animation: riseIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+        }
+
+        .link-item:nth-child(1) { animation-delay: 1.7s; }
+        .link-item:nth-child(2) { animation-delay: 1.95s; }
+        .link-item:nth-child(3) { animation-delay: 2.2s; }
+
+        .link-item + .link-item {
+            margin-top: 1.8rem;
+        }
+
+        .link-item a {
+            color: var(--mist);
+            text-decoration: none;
+            font-size: 0.68rem;
+            font-weight: 200;
+            letter-spacing: 0.45em;
+            text-transform: uppercase;
+            padding-bottom: 5px;
+            border-bottom: 1px solid transparent;
+            transition: color 0.35s ease, border-color 0.35s ease;
+            cursor: pointer;
+        }
+
+        .link-item a:hover {
+            color: var(--ink);
+            border-bottom-color: var(--bronze);
+        }
+
+        /* ── Keyframes ── */
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes riseIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .name { font-size: 1.8rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; opacity: 1 !important; width: 100% !important; }
+        }
     </style>
 </head>
 <body>
-
-    <div class="portal-container">
+    <div class="stage">
+        <div class="eyebrow">Vienna · Austria</div>
         <div class="name">Michael Gfrerer</div>
-        <div class="title">Principal</div>
-        
+        <div class="principal">Principal</div>
+        <div class="rule"></div>
+
         <ul class="link-list">
             <li class="link-item"><a onclick="openSecureLink('bWFpbHRvOiBwcmluY2lwYWxAZ2ZyZXJlcmNhcGl0YWwuYXQ=')">Secure Email</a></li>
             <li class="link-item"><a onclick="openSecureLink('aHR0cHM6Ly9saW5rZWRpbi5jb20vaW4vdGhlcmVhbGdmcmVyZXI=')">LinkedIn Profile</a></li>
@@ -53,11 +205,10 @@
                 } else {
                     window.open(decodedUrl, '_blank', 'noopener,noreferrer');
                 }
-            } catch (e) {
+            } catch(e) {
                 console.error("Decryption failed.");
             }
         }
     </script>
-
 </body>
 </html>
