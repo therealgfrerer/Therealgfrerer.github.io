@@ -4,37 +4,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MICHAEL GFRERER</title>
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Inter:wght@100;200;300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@100;200;300&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
-        body { background-color: #000000; font-family: 'Inter', sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
-        .brand-container { text-align: center; padding: 20px; }
-        .name { font-size: 1.5rem; font-weight: 200; letter-spacing: 0.45em; text-transform: uppercase; margin-bottom: 0.8rem; white-space: nowrap; color: #D4D4D4; }
-        .title { font-size: 0.85rem; font-weight: 300; letter-spacing: 0.55em; text-transform: uppercase; color: #555555; margin-bottom: 4rem; padding-left: 0.55em; }
-        .notice { font-size: 0.6rem; font-weight: 200; letter-spacing: 0.4em; text-transform: uppercase; color: #666666; margin-bottom: 1.5rem; }
-        .access-field { background: transparent; border: 1px solid #333333; color: #D4D4D4; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 200; letter-spacing: 0.2em; padding: 0.6rem 1.2rem; text-align: center; width: 240px; outline: none; transition: all 0.3s ease; }
-        .access-field:focus { border-color: #666666; }
-        .access-field::placeholder { color: #444444; font-size: 0.7rem; }
-        @keyframes shakeError {
-            0%, 100% { transform: translateX(0); border-color: #333333; color: #D4D4D4; }
-            20%, 60% { transform: translateX(-6px); border-color: #8a1f1f; color: #8a1f1f; }
-            40%, 80% { transform: translateX(6px); border-color: #8a1f1f; color: #8a1f1f; }
+
+        body {
+            background-color: #0f0f0d;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
-        .error-effect { animation: shakeError 0.4s ease-in-out; }
+
+        .brand-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* ── Name ── */
+        .name-wrap {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0.9rem;
+        }
+
+        .name {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.75rem;
+            font-weight: 300;
+            letter-spacing: 0.45em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            color: #e8e2d9;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.1s forwards;
+        }
+
+        /* Gold underline draws in after name appears */
+        .name-wrap::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            height: 1px;
+            width: 0;
+            background: linear-gradient(90deg, transparent, #b8965a, transparent);
+            animation: drawLine 1s cubic-bezier(0.4, 0, 0.2, 1) 0.9s forwards;
+        }
+
+        @keyframes drawLine {
+            to { width: 100%; }
+        }
+
+        /* ── Title ── */
+        .title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 300;
+            letter-spacing: 0.55em;
+            text-transform: uppercase;
+            color: #5a5650;
+            margin-bottom: 3.5rem;
+            padding-left: 0.55em;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 0.5s forwards;
+        }
+
+        /* ── Notice ── */
+        .notice {
+            font-size: 0.58rem;
+            font-weight: 200;
+            letter-spacing: 0.38em;
+            text-transform: uppercase;
+            color: #5a5650;
+            margin-bottom: 1.4rem;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 1.3s forwards;
+            transition: color 0.4s ease;
+        }
+
+        /* ── Input ── */
+        .access-field {
+            background: transparent;
+            border: 1px solid rgba(184,150,90,0.25);
+            color: #e8e2d9;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 200;
+            letter-spacing: 0.22em;
+            padding: 0.7rem 1.4rem;
+            text-align: center;
+            width: 250px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+            opacity: 0;
+            animation: fadeUp 0.7s ease 1.5s forwards;
+        }
+
+        .access-field:focus {
+            border-color: rgba(184,150,90,0.6);
+            box-shadow: 0 0 0 1px rgba(184,150,90,0.08), 0 4px 20px rgba(184,150,90,0.05);
+        }
+
+        .access-field::placeholder {
+            color: #3d3d39;
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0); border-color: rgba(184,150,90,0.25); color: #e8e2d9; }
+            20%, 60% { transform: translateX(-6px); border-color: #8a1f1f; color: #8a1f1f; }
+            40%, 80% { transform: translateX(6px);  border-color: #8a1f1f; color: #8a1f1f; }
+        }
+
+        .error-effect {
+            animation: shakeError 0.4s ease-in-out !important;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::after { animation: none !important; opacity: 1 !important; }
+        }
     </style>
 </head>
 <body>
     <div class="brand-container">
-        <div class="name">Michael Gfrerer</div>
+        <div class="name-wrap">
+            <div class="name">Michael Gfrerer</div>
+        </div>
         <div class="title">Principal</div>
         <div class="notice" id="status-text">Private Office &middot; By Invitation Only</div>
         <input type="text" class="access-field" id="code-input" placeholder="ENTER ACCESS CODE..." autocomplete="off">
     </div>
+
     <script>
         const inputField = document.getElementById('code-input');
         const statusText = document.getElementById('status-text');
+
         inputField.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
                 const enteredValue = inputField.value.trim().toLowerCase();
@@ -53,6 +169,7 @@
                 }
             }
         });
+
         function triggerError() {
             inputField.classList.add('error-effect');
             inputField.value = "ACCESS DENIED";
@@ -61,7 +178,7 @@
             setTimeout(() => {
                 inputField.classList.remove('error-effect');
                 inputField.value = "";
-                statusText.style.color = "#666666";
+                statusText.style.color = "#5a5650";
                 statusText.innerHTML = "Private Office &middot; By Invitation Only";
                 inputField.focus();
             }, 1200);
